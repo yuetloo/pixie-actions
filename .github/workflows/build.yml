@@ -7,6 +7,13 @@ on:
 jobs:
   build:
     runs-on: ubuntu-22.04
+    container:
+      image: espressif/idf:latest
+      env:
+        HOME: /tmp
+      volumes:
+        - ${{ github.workspace }}:/project
+      options: -w /project -u ${{ github.user }}
     steps:
     - name: Checkout pixie-firmware
       uses: actions/checkout@v3
@@ -14,13 +21,7 @@ jobs:
         repository: yuetloo/pixie-firmware
         path: pixie-firmware
         ref: v0.0.1
-    - name: Run Docker container to build pixie-firmware
-      uses: docker://espressif/idf:latest
-      with:
-        args: -v ${{ github.workspace }}:/project -w /project -u $UID -e HOME=/tmp idf.py build
-#-v ${{ github.workspace }}:/project
-#-w /project
-#-u $UID
-#-e HOME=/tmp
+    - name: build pixie-firmware
+      run: idf.py build
     - name: Verify assets
       run: ls -l ${{ github.workspace }}/build
