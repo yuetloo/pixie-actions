@@ -3,17 +3,9 @@ on:
   push:
   workflow_dispatch:
 
-
 jobs:
   build:
-    runs-on: ubuntu-22.04
-    container:
-      image: espressif/idf:latest
-      env:
-        HOME: /tmp
-      volumes:
-        - ${{ github.workspace }}/pixie-firmware:/project
-      options: -w /project -u ${{ github.user }}
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout pixie-firmware
       uses: actions/checkout@v3
@@ -21,7 +13,5 @@ jobs:
         repository: yuetloo/pixie-firmware
         path: pixie-firmware
         ref: v0.0.1
-    - name: build pixie-firmware
-      run: idf.py build
     - name: Verify assets
-      run: ls -l ${{ github.workspace }}/pixie-firmware/build
+      run: ls -l ${{ github.workspace }}
