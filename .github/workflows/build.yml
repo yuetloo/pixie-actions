@@ -16,6 +16,6 @@ jobs:
     - name: Verify assets
       run: ls ${{ github.workspace }}
     - name: Verify user
-      run: ls ${{ github.triggering_actor }}
+      run: echo ${{ github.triggering_actor }}
     - name: Run docker command
       run: docker ps -a
