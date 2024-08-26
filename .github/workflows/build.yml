@@ -18,7 +18,6 @@ jobs:
       uses: docker://espressif/idf:latest
       with:
         args: >-
-          --rm
           -v ${{ github.workspace }}:/project
           -w /project
           -u $UID
