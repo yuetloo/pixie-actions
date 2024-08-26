@@ -20,5 +20,5 @@ jobs:
         cd pixie-firmware
         docker run --rm -v $PWD:/project -w /project -u $UID -e HOME=/tmp espressif/idf idf.py build
     - name: Verify assets
-      run: ls ${{ github.workspace }}
+      run: ls -R ${{ github.workspace }}/pixie-firmware/build
   
