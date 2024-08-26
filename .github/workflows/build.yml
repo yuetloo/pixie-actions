@@ -17,11 +17,11 @@ jobs:
     - name: Run Docker container to build pixie-firmware
       uses: docker://espressif/idf:latest
       with:
-        args: >--
-          -v ${{ github.workspace }}:/project
-          -w /project
-          -u $UID
-          -e HOME=/tmp
+        args: >-
           idf.py build
+#-v ${{ github.workspace }}:/project
+#-w /project
+#-u $UID
+#-e HOME=/tmp
     - name: Verify assets
       run: ls -l ${{ github.workspace }}/build
