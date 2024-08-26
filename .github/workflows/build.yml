@@ -12,7 +12,7 @@ jobs:
       env:
         HOME: /tmp
       volumes:
-        - ${{ github.workspace }}:/project
+        - ${{ github.workspace }}/pixie-firmware:/project
       options: -w /project -u ${{ github.user }}
     steps:
     - name: Checkout pixie-firmware
@@ -24,4 +24,4 @@ jobs:
     - name: build pixie-firmware
       run: idf.py build
     - name: Verify assets
-      run: ls -l ${{ github.workspace }}/build
+      run: ls -l ${{ github.workspace }}/pixie-firmware/build
