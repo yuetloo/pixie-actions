@@ -1,0 +1,28 @@
+name: Build
+on: 
+  push:
+  workflow_dispatch:
+
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+    - name: Checkout pixie-firmware
+      uses: actions/checkout@v3
+      with:
+        repository: yuetloo/pixie-firmware
+        path: pixie-firmware
+        ref: v0.0.1
+    - name: Run Docker container to build pixie-firmware
+      uses: docker://espressif/idf:latest
+      with:
+        args: >-
+        --rm
+        -v ${{ github.workspace }}:/project
+        -w /project
+        -u $UID
+        -e HOME=/tmp
+        idf.py build 
+    - name: Verify assets
+      run: ls -l ${{ github.workspace }}/build
