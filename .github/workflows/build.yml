@@ -14,4 +14,8 @@ jobs:
         path: pixie-firmware
         ref: v0.0.1
     - name: Verify assets
-      run: ls -R ${{ github.workspace }}
+      run: ls ${{ github.workspace }}
+    - name: Verify user
+      run: ls ${{ github.triggering_actor }}
+    - name: Run docker command
+      run: docker ps -a
