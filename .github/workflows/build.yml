@@ -17,7 +17,7 @@ jobs:
     - name: Run Docker container to build pixie-firmware
       uses: docker://espressif/idf:latest
       with:
-        args: >-
+        args: >--
           -v ${{ github.workspace }}:/project
           -w /project
           -u $UID
