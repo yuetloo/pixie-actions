@@ -13,9 +13,12 @@ jobs:
         repository: yuetloo/pixie-firmware
         path: pixie-firmware
         ref: v0.0.1
+    - name: Verify user
+      run: echo $UID
+    - name: Build pixie-firmware using Docker
+      run: |
+        cd pixie-firmware
+        docker run --rm -v $PWD:/project -w /project -u $UID -e HOME=/tmp espressif/idf idf.py build
     - name: Verify assets
       run: ls ${{ github.workspace }}
-    - name: Verify user
-      run: echo ${{ github.triggering_actor }}
-    - name: Run docker command
-      run: docker ps -a
+  
