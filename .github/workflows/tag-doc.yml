@@ -34,8 +34,6 @@ jobs:
             fi
           done &lt; files.txt
 
-          job_for_db:
-
   tag_documentation:
     name: tag documentation
     needs: check
