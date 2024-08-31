@@ -1,0 +1,12 @@
+name: Add documentation tag
+on: 
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  tag-documentation:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check for github events
+      run: |
+        echo ${{ github.event }}
