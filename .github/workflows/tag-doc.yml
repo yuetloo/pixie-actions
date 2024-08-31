@@ -27,18 +27,23 @@ jobs:
             echo $file
             if [[ $file != docs/* ]]; then
               echo "This modified file is not under the 'docs' folder."
-              echo "::set-output name=run_job::false"
+              echo "run_job=false" >> $GITHUB_OUTPUT
               break
             else
-              echo "::set-output name=run_job::true"
+              echo "run_job=true" >> $GITHUB_OUTPUT
             fi
           done < files.txt
 
   tag_documentation:
-    name: tag documentation
+    name: Add 'documentation' label to PR
     needs: check
     if: needs.check.outputs.run_job == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: add documentation tag
-        run: echo "Add tag"
+        run: gh pr edit "$NUMBER" --add-label "$LABELS"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          NUMBER: ${{ github.event.pull_request.number }}
+          LABELS: documentation
